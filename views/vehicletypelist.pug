@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+        each make in listTypes
+            li
+                a(href=make.url) #{make.name}:
+                |  #{make.description}
+
+        else
+            li There are no makes.

@@ -1,0 +1,28 @@
+extends layout
+
+block content
+
+    h1 Delete Vehicle Type: #{vehicletype.name}
+
+    if vehicles.length
+
+        p #[strong Delete the following vehicles before attempting to delete this vehicle type.]
+
+        div(style='margin-left:20px;margin-top:20px')
+
+            h4 Vehicles
+
+            dl
+            each vehicle in vehicles
+                dt
+                    a(href=vehicle.url) #{vehicle.make.manufacturer} #{vehicle.model} $#{vehicle.price}/day
+                dd
+
+    else
+        p Do you really want to delete this vehicle type?
+
+        form(method='POST' action='')
+            div.form-group
+                input#id.form-control(type='hidden',name='id', required='true', value=vehicletype._id )
+
+            button.btn.btn-primary(type='submit') Delete

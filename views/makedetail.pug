@@ -1,0 +1,26 @@
+extends layout
+
+block content
+
+    h1 Make: #{make.manufacturer}
+    p Country of Origin: #{make.country}
+
+    div(style='margin-left:20px;margin-top:20px')
+
+        h4 Vehicles
+
+        dl
+            each vehicle in vehicles
+                dt
+                    a(href=vehicle.url) #{vehicle.model}
+                dd  &nbsp$#{vehicle.price}
+                br
+
+            else
+                p This there are no vehicles from this manufacturer.
+
+    hr
+    p
+        a(href=make.url + '/delete') Delete make
+    p
+        a(href=make.url + '/update') Update make

@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1 #{title}: #{make.manufacturer}
+    p= make.price
+
+    if makesvehicles.length
+        p #[strong Delete the following vehicles before attempting to delete this manufacturer.]
+        div(style='margin-left:20px;margin-top:20px')
+            h4 Vehicles
+            dl
+            each vehicle in makesvehicles
+                dt
+                    a(href=vehicle.url) #{vehicle.model}
+                dd #{vehicle.price}
+
+    else
+        p Do you really want to delete this Make?
+
+        form(method='POST' action='')
+            div.form-group
+                input#makeid.form-control(type='hidden',name='makeid', required='true', value=make._id )
+
+            button.btn.btn-primary(type='submit') Delete

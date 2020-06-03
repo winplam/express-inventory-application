@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+    h1 ID: #{vehicleinstance._id}
+    //p #{vehicleinstance}
+    //p #{vehicleinstance.vehicle}
+
+    if vehicleinstance.vehicle.make.manufacturer != null
+        p #[strong Make: ]
+            a(href=vehicleinstance.vehicle.url) #{vehicleinstance.vehicle.make.manufacturer}
+
+    p #[strong Model: ]
+        a(href=vehicleinstance.vehicle.url) #{vehicleinstance.vehicle.model}
+
+    p #[strong Customer: ]
+        a(href=vehicleinstance.customer.url) #{vehicleinstance.customer}
+
+    p #[strong Status: ]
+        if vehicleinstance.status == 'Available'
+            span.text-success #{vehicleinstance.status}
+        else if vehicleinstance.status == 'Maintenance'
+            span.text-danger #{vehicleinstance.status}
+        else
+            span.text-warning #{vehicleinstance.status}
+
+    if vehicleinstance.status != 'Available'
+        p #[strong Due Back: ] #{vehicleinstance.dueBackFormatted}
+
+    hr
+    p
+        a(href=vehicleinstance.url + '/delete') Delete Vehicle Instance
+    p
+        a(href=vehicleinstance.url + '/update') Update Vehicle Instance

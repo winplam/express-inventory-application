@@ -1,0 +1,44 @@
+extends layout
+block content
+    h1 #{title}: #{vehicle.model}
+
+    p #[strong Make: ]
+        a(href=vehicle.make.url) #{vehicle.make.manufacturer}
+    p #[strong Model: ]
+        a(href=vehicle.model) #{vehicle.model}
+    p #[strong Price:] $#{vehicle.price}
+    p #[strong Vehicle Type:]&nbsp;
+        each veh, index in vehicle.vehicleType
+            a(href=veh.url) &nbsp#{veh.name}
+            if index < vehicle.vehicleType.length - 1
+                | ,
+    hr
+
+    if vehicleinstances.length
+        p #[strong Delete the following vehicles before attempting to delete this manufacturer.]
+        div(style='margin-left:20px;margin-top:20px')
+            h4 Vehicles
+            p #{vehicleinstances}
+
+                each veh in vehicleinstances
+                    hr
+                    if veh.status=='Available'
+                        p.text-success #{veh.status}
+                    else if veh.status=='Maintenance'
+                        p.text-danger #{veh.status}
+                    else
+                        p.text-warning #{veh.status}
+                    p #[strong Customer:] #{veh.customer}
+                    if veh.status!='Available'
+                        p #[strong Due Back:] #{veh.dueBack}
+                    p #[strong Id:]
+                        a(href=veh.url) #{veh._id}
+
+    else
+        p Do you really want to delete this vehicle?
+
+        form(method='POST' action='')
+            div.form-group
+                input#id.form-control(type='hidden',name='id', required='true', value=vehicle._id )
+
+            button.btn.btn-primary(type='submit') Delete

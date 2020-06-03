@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+        - listVehicle.sort(function(a, b) {let textA = a.model.toUpperCase(); let textB = b.model.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+        each vehicle in listVehicle
+            li
+                a(href=vehicle.url) #{vehicle.model}
+                |  (#{vehicle.make.manufacturer})
+
+        else
+            li There are no vehicles.

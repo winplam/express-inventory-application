@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+        each vehicleInstance in listVehicleInstances
+            li
+                a(href=vehicleInstance.url) #{vehicleInstance.vehicle.model} : #{vehicleInstance.customer} -
+                if vehicleInstance.status == 'Available'
+                    span.text-success #{vehicleInstance.status}
+                else if vehicleInstance.status == 'Maintenance'
+                    span.text-danger #{vehicleInstance.status}
+                else
+                    span.text-warning #{vehicleInstance.status}
+                if vehicleInstance.status != 'Available'
+                    span  (Due: #{vehicleInstance.dueBackFormatted} )
+
+        else
+            li There are no book copies in this library.

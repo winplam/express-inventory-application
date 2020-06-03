@@ -1,0 +1,25 @@
+extends layout
+
+block content
+
+    h1 Vehicle Type: #{vehicletype.name}
+
+    div(style='margin-left:20px;margin-top:20px')
+
+        h4 Vehicles
+
+        dl
+            each vehicle in vehicles
+                dt
+                    a(href=vehicle.url) #{vehicle.make.manufacturer} #{vehicle.model}
+                dd $#{vehicle.price} / day
+                br
+
+            else
+                p There are not vehicles of this type.
+
+        hr
+        p
+            a(href=vehicletype.url + '/delete') Delete vehicle type
+        p
+            a(href=vehicletype.url + '/update') Update vehicle type

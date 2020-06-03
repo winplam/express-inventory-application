@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1=title
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='manufacturer') Manufacturer:
+            input#manufacturer.form-control(type='text' placeholder='Toyota, Tesla, Volkswagen, etc...' name='manufacturer' required='true' value=(undefined === make ? '' : make.manufacturer) )
+            br
+            label(for='country') Country:
+            input#country.form-control(type='text' placeholder='Country of origin' name='country' required='false' value=(undefined === country ? '' : make.country))
+        button.btn.btn-primary(type='submit') Submit
+    if errors
+        ul
+            for error in errors
+                li!= error.msg

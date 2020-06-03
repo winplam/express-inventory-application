@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+
+    ul
+        each make in listMakes
+            li
+                a(href=make.url) #{make.manufacturer}
+                |  (#{make.country})
+
+        else
+            li There are no makes.

@@ -1,0 +1,41 @@
+extends layout
+
+block content
+    h1= title
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='model') Model:
+            if vehicle
+                input#model.form-control(type='text', placeholder='Model of vehicle' name='model' required='true' value=(undefined === vehicle.model ? '' : vehicle.model) )
+            else
+                input#model.form-control(type='text', placeholder='Model of vehicle' name='model' required='true' value=('') )
+
+        div.form-group
+            label(for='make') Make:
+            select#make.form-control(type='select' placeholder='Select make' name='make' required='true' )
+                - makes.sort(function(a, b) {let textA = a.manufacturer.toUpperCase(); let textB = b.manufacturer.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                    for make in makes
+                     if vehicle
+                         option(value=make._id selected=(make._id.toString() == vehicle.make._id || make._id.toString() == vehicle.make) ? 'selected' : false) #{make.manufacturer}
+                     else
+                         option(value=make._id) #{make.manufacturer}
+
+        div.form-group
+            label(for='price') Price:
+            input#price.form-control(type='text', placeholder=0 name='price' value=(undefined === vehicle ? '' : vehicle.price) required='true')
+
+        div.form-group
+            label Vehicle Type:
+            div
+                for vehicletype in vehicletypes
+                    div(style='display: inline; padding-right:10px;')
+                        input.checkbox-input(type='checkbox', name='vehicletype', id=vehicletype._id, value=vehicletype._id, checked=vehicletype.checked )
+                        label(for=vehicletype._id) &nbsp#{vehicletype.name}
+
+        button.btn.btn-primary(type='submit') Submit
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg

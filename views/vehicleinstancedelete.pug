@@ -1,0 +1,33 @@
+extends layout
+
+block content
+
+    h1= title
+
+    p #[strong Do you really want to delete this Vehicle Instance?]
+
+    div(style="margin-left:20px")
+
+        p #[strong ID]: #{vehicleinstance._id}
+
+        p #[strong Model:]
+            a(href=vehicleinstance.vehicle.url) &nbsp#{vehicleinstance.vehicle.model}
+
+        p #[strong Customer:] #{vehicleinstance.customer}
+
+        p #[strong Status: ]
+            if vehicleinstance.status == 'Available'
+                span.text-success #{vehicleinstance.status}
+            else if vehicleinstance.status == 'Maintenance'
+                span.text-danger #{vehicleinstance.status}
+            else
+                span.text-warning #{vehicleinstance.status}
+
+        if vehicleinstance.status != 'Available'
+            p #[strong Due back:] #{vehicleinstance.dueBackFormatted}
+
+    form(method='POST' action='')
+        div.form-group
+            input#id.form-control(type='hidden',name='id', required='true', value=vehicleinstance._id )
+
+        button.btn.btn-primary(type='submit') Delete
